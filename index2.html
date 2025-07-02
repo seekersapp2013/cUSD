@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Interaction</title>
+</head>
+<body>
+    <h1>Interact with Smart Contract</h1>
+    <div id="contract-details"></div>
+
+    <h2>Update Contract Details</h2>
+    <form id="contract-form">
+        <label for="name">Token Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="symbol">Token Symbol:</label>
+        <input type="text" id="symbol" name="symbol" required><br><br>
+        
+        <label for="initialSupply">Initial Supply:</label>
+        <input type="number" id="initialSupply" name="initialSupply" required><br><br>
+
+        <label for="privateKey">Private Key:</label>
+        <input type="text" id="privateKey" name="privateKey" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        async function fetchContractDetails() {
+            try {
+                const response = await fetch('http://localhost:3000/contract-details');
+                const contractDetails = await response.json();
+
+                const detailsDiv = document.getElementById('contract-details');
+                detailsDiv.innerHTML = `
+                    <h2>Contract Details:</h2>
+                    <p>Name: ${contractDetails.name}</p>
+                    <p>Symbol: ${contractDetails.symbol}</p>
+                    <p>Initial Supply: ${contractDetails.initialSupply}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching contract details:', error);
+            }
+        }
+
+        document.getElementById('contract-form').addEventListener('submit', async (e) => {
+            e.preventDefault();  // Prevent form submission
+            const name = document.getElementById('name').value;
+            const symbol = document.getElementById('symbol').value;
+            const initialSupply = document.getElementById('initialSupply').value;
+            const privateKey = document.getElementById('privateKey').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/update-contract', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, symbol, initialSupply, privateKey }),
+                });
+
+                if (response.ok) {
+                    alert('Contract updated successfully!');
+                    fetchContractDetails(); // Refresh contract details after update
+                } else {
+                    alert('Error updating contract.');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Error updating contract.');
+            }
+        });
+
+        fetchContractDetails(); // Fetch contract details on page load
+    </script>
+</body>
+</html>
