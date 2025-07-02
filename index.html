@@ -13,7 +13,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="manifest" href="_manifest.json">
 <meta id="theme-check" name="theme-color" content="#FFFFFF">
-<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png"></head>
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+
+</head>
 
 <body class="theme-light">
 
@@ -157,35 +159,65 @@
                         </div>
                     </div>
                     
-                    <!-- Tab 2: Import Wallet -->
-                    <div class="collapse" id="tab-5" data-bs-parent="#tab-group-2">
-                        <h1>Import Wallet</h1>
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Import Wallet</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="privateKeyInput" class="form-label">Enter Private Key</label>
-                                    <input type="text" class="form-control" id="privateKeyInput" placeholder="Enter your private key" value="0x28ec8ed0b9b770b4a1fe0994c60d8e203615a28ceb485282cb8a9ebbca794762">
-                                </div>
-                                <button class="btn btn-primary" onclick="getAddressFromPrivateKey()">Get Wallet Details</button>
-                                <div id="importedWalletDetails" class="result-box d-none">
-                                    <p><strong>Wallet Address:</strong> <span id="importedAddress"></span></p>
-                                    <div id="balanceSection" class="mt-3">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h4 class="mb-0">Balances</h4>
-                                            <button class="btn btn-outline-primary btn-sm" onclick="refreshBalances()">
-                                                <i class="bi bi-arrow-clockwise"></i> Refresh
-                                            </button>
-                                        </div>
-                                        <p><strong>Native Token Balance:</strong> <span id="nativeBalance"></span></p>
-                                        <p><strong>Custom Token Balance:</strong> <span id="customBalance"></span></p>
-                                    </div>
+<!-- Tab 2: Import Wallet -->
+<div class="collapse" id="tab-5" data-bs-parent="#tab-group-2">
+    <h1>Import Wallet</h1>
+    <div class="card">
+        <div class="card-header">
+            <h3>Import Wallet</h3>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="privateKeyInput" class="form-label">Enter Private Key</label>
+                <input type="text" class="form-control" id="privateKeyInput" placeholder="Enter your private key" value="0x28ec8ed0b9b770b4a1fe0994c60d8e203615a28ceb485282cb8a9ebbca794762">
+            </div>
+            <button class="btn btn-stack-click btn mx-3 mb-4 btn-full gradient-highlight shadow-bg shadow-bg-xs" onclick="getAddressFromPrivateKey()">
+                Get Wallet Details
+            </button>
+
+            <div id="importedWalletDetails" class="result-box d-none">
+                <!-- Card Stack - The Stack Height Below will be the card height -->
+                <div class="card-stack" data-stack-height="180">
+                    <!-- Card Open on Click -->
+                    <div class="card-stack-click"></div>
+
+                    <!-- Card 1 -->
+                    <div class="card card-style bg-5">
+                        <div class="card-top p-3">
+                            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#menu-card-more" class="icon icon-xxs bg-white color-black float-end">
+                                <i class="bi bi-arrow-repeat font-18"><a href="#" onclick="refreshBalances()"></a></i>
+                            </a>
+                        </div>
+                        <div class="card-center">
+                            <div class="bg-theme px-3 py-2 rounded-end d-inline-block">
+                                <h1 class="font-13 my-n1">
+                                    <a class="color-theme" data-bs-toggle="collapse" href="#balance3" aria-controls="balance3">Balance: <span id="customBalance"></span></a>
+                                </h1>
+                                <div class="collapse" id="balance3">
+                                    <h2 class="color-theme font-26">$26,315</h2>
                                 </div>
                             </div>
                         </div>
+                        <strong class="card-top no-click font-12 p-3 color-white font-monospace">Wallet Address: <span id="importedAddress"></span></strong>
+                        
+                        <strong class="card-bottom no-click p-3 text-start color-white font-monospace">Native Token: <span id="nativeBalance"></span> </strong>
+                        
+                        <!-- <strong class="card-bottom no-click p-3 text-end color-white font-monospace">08 / 2025</strong>
+                         -->
+                        <div class="card-overlay bg-black opacity-50"></div>
                     </div>
+                </div>
+
+
+                <div id="balanceSection" class="mt-3">
+                   
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                     
                     <!-- Tab 3: Transfer Funds -->
                     <div class="collapse" id="tab-x" data-bs-parent="#tab-group-2">
